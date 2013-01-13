@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Texas by decs</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Texas</h1>
+        <p>Texas is a library to provide 5 to 7 card hands evaluation for Texas Hold'em on node.js. It uses the look-up table method created by users of the Two Plus Two forum.</p>
+
+        <p class="view"><a href="https://github.com/decs/texas">View the Project on GitHub <small>decs/texas</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/decs/texas/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/decs/texas/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/decs/texas">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>Installing</h2>
+
+<pre><code>npm install texas
+</code></pre>
+
+<h2>Using</h2>
+
+<p>The following example generates a random hand and evaluates it:</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">_</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'underscore'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">texas</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'texas'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">hand</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">first</span><span class="p">(</span><span class="nx">texas</span><span class="p">.</span><span class="nx">deck</span><span class="p">(),</span> <span class="mi">7</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">hand</span><span class="p">,</span> <span class="nx">texas</span><span class="p">.</span><span class="nx">abbr</span><span class="p">));</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">texas</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">hand</span><span class="p">));</span>
+</pre></div>
+
+<p>Which will output something like:</p>
+
+<pre><code>[ '5h', '3s', '4d', '7s', '5d', 'Jd', '6d' ]
+{ name: 'Straight', value: 20483 }
+</code></pre>
+
+<h2>Formats</h2>
+
+<h3>Extended</h3>
+
+<pre><code>&gt; texas.extended(3)
+'Two of Hearts'
+</code></pre>
+
+<h3>Abbreviated</h3>
+
+<pre><code>&gt; texas.abbr(15)
+'5h'
+</code></pre>
+
+<h3>Unicode</h3>
+
+<pre><code>&gt; texas.unicode(42)
+'Q♦'
+</code></pre>
+
+<h2>Benchmark</h2>
+
+<p>A benchmark function is included in the library. It evaluates every possible 7 card hands.</p>
+
+<pre><code>&gt; texas.benchmark()
+Invalid: 0
+High Card: 23294460
+One Pair: 58627800
+Two Pairs: 31433400
+Three of a Kind: 6461620
+Straight: 6180020
+Flush: 4047644
+Full House: 3473184
+Four of a Kind: 224848
+Straight Flush: 41584
+Total: 133784560
+891ms // On a Mid 2011 13" MacBook Air
+</code></pre>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/decs">decs</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
