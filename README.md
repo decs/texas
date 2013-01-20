@@ -19,6 +19,14 @@ console.log(_.map(hand, texas.abbr));
 console.log(texas.evaluate(hand));
 ```
 
+The following example calculates the odds of a 2-player game:
+```javascript
+var texas = require('texas');
+
+var odds = texas.odds([['As', 'Ac'], ['Ks', 'Qc']], ['3d', 'Qc', 'Kd']);
+console.log(odds);
+```
+
 Which will output something like:
 ```
 [ '5h', '3s', '4d', '7s', '5d', 'Jd', '6d' ]

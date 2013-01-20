@@ -88,6 +88,72 @@ module.exports = {
 		return _.sortBy(cards, getCode);
 	},
 	
+	// Calculates the exact odds.
+	odds: function (hands, table) {
+		// Preprocesses the input data.
+		table = table ? _.map(table, getCode) : [];
+		hands = _.map(hands, function (hand) {
+			return _.map(hand, getCode);
+		});
+		var res = deckSize + 1;
+		for (var c = 0; c < table.length; c++)
+			res = evaluator[res + table[c]];
+		var deck = _.chain(_.range(1, deckSize + 1))
+				.difference(_.flatten(hands)).difference(table).value();
+		var player = _.map(hands, function (hand) {
+			return evaluator[evaluator[res + hand[0]] + hand[1]];
+		});
+		var combinations = function (n, k, res, callback) {
+			if (k <= 0) {
+				callback(res);
+			} else {
+				while (n < deck.length) {
+					var parcial = evaluator[res + deck[n++]];
+					combinations(n, k - 1, parcial, callback);
+				}
+			}
+		};
+		
+		// Calculates the outcome of each play.
+		var remaining = 5 - table.length;
+		var plays = deck.length / remaining;
+		for (var c = 1; c < remaining; c++)
+			plays *= (deck.length - c) / c;
+		var values = new Array(hands.length);
+		for (var p = 0; p < hands.length; p++) {
+			var s = 0;
+			values[p] = new Int32Array(plays);
+			combinations(0, remaining, player[p], function (res) {
+				values[p][s++] = res;
+			});
+		}
+		
+		// Determines the results.
+		var wins = new Int32Array(hands.length);
+		var splits = new Int32Array(hands.length);
+		for (var s = 0; s < plays; s++) {
+			var winner = [0];
+			for (var p = 1; p < hands.length; p++) {
+				if (values[p][s] > values[winner[0]][s])
+					winner = [p];
+				else if (values[p][s] == values[winner[0]][s])
+					winner.push(p);
+			}
+			if (winner.length == 1) {
+				wins[winner[0]]++;
+			} else {
+				for (var p = 0; p < winner.length; p++)
+					splits[winner[p]]++;
+			}
+		}
+		
+		// Formats odds output.
+		var odds = [];
+		for (var p = 0; p < hands.length; p++)
+			odds[p] = {win: wins[p] / plays, split: splits[p] / plays};
+		return odds;
+	},
+	
 	// Formats the card to extended text.
 	extended: filter(function (card) {
 		return ranks[card.rank] + ' of ' + suits[card.suit];
