@@ -9,6 +9,9 @@ npm install texas
 ```
 
 ## Using
+
+### Evaluator
+
 The following example generates a random hand and evaluates it:
 ```javascript
 var _ = require('underscore');
@@ -19,7 +22,15 @@ console.log(_.map(hand, texas.abbr));
 console.log(texas.evaluate(hand));
 ```
 
-The following example calculates the odds of a 2-player game:
+Which will output something like:
+```
+[ '5h', '3s', '4d', '7s', '5d', 'Jd', '6d' ]
+{ name: 'Straight', value: 20483 }
+```
+
+### Odds
+
+The following example calculates the odds of a 2-player game after the flop:
 ```javascript
 var texas = require('texas');
 
@@ -29,8 +40,8 @@ console.log(odds);
 
 Which will output something like:
 ```
-[ '5h', '3s', '4d', '7s', '5d', 'Jd', '6d' ]
-{ name: 'Straight', value: 20483 }
+[ { win: 0.2608695652173913, split: 0 },
+  { win: 0.7391304347826086, split: 0 } ]
 ```
 
 ## Formats
