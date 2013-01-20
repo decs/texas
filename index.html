@@ -28,12 +28,20 @@
         </ul>
       </header>
       <section>
-        <h2>Installing</h2>
+        <h1>texas</h1>
+
+<p>Texas is a library to provide 5 to 7 card hands evaluation for Texas Hold'em on node.js.
+It uses the look-up table method created by users of the
+<a href="archives1.twoplustwo.com/showflat.php?Cat=0&amp;Number=8513906&amp;page=0&amp;fpart=1&amp;vc=1">Two Plus Two forum</a>.</p>
+
+<h2>Installing</h2>
 
 <pre><code>npm install texas
 </code></pre>
 
 <h2>Using</h2>
+
+<h3>Evaluator</h3>
 
 <p>The following example generates a random hand and evaluates it:</p>
 
@@ -49,6 +57,22 @@
 
 <pre><code>[ '5h', '3s', '4d', '7s', '5d', 'Jd', '6d' ]
 { name: 'Straight', value: 20483 }
+</code></pre>
+
+<h3>Odds</h3>
+
+<p>The following example calculates the odds of a 2-player game after the flop:</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">texas</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'texas'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">odds</span> <span class="o">=</span> <span class="nx">texas</span><span class="p">.</span><span class="nx">odds</span><span class="p">([[</span><span class="s1">'As'</span><span class="p">,</span> <span class="s1">'Ac'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'Ks'</span><span class="p">,</span> <span class="s1">'Qc'</span><span class="p">]],</span> <span class="p">[</span><span class="s1">'3d'</span><span class="p">,</span> <span class="s1">'Qc'</span><span class="p">,</span> <span class="s1">'Kd'</span><span class="p">]);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">odds</span><span class="p">);</span>
+</pre></div>
+
+<p>Which will output something like:</p>
+
+<pre><code>[ { win: 0.2608695652173913, split: 0 },
+  { win: 0.7391304347826086, split: 0 } ]
 </code></pre>
 
 <h2>Formats</h2>
