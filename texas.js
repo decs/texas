@@ -89,17 +89,18 @@ module.exports = {
 	},
 	
 	// Calculates the exact odds.
-	odds: function (hands, table) {
+	odds: function (hands, table, dead) {
 		// Preprocesses the input data.
 		table = table ? _.map(table, getCode) : [];
+		dead = dead ? _.map(dead, getCode) : [];
 		hands = _.map(hands, function (hand) {
 			return _.map(hand, getCode);
 		});
 		var res = deckSize + 1;
 		for (var c = 0; c < table.length; c++)
 			res = evaluator[res + table[c]];
-		var deck = _.chain(_.range(1, deckSize + 1))
-				.difference(_.flatten(hands)).difference(table).value();
+		var deck = _.chain(_.range(1, deckSize + 1)).difference(table)
+				.difference(_.flatten(hands)).difference(dead).value();
 		var player = _.map(hands, function (hand) {
 			return evaluator[evaluator[res + hand[0]] + hand[1]];
 		});
