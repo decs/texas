@@ -5,7 +5,8 @@
 var _ = require('underscore');
 var fs = require('fs');
 var crypto = require('crypto');
-var gzip = require('compress-buffer');
+var zlib = require('zlib');
+var memcpy = require('memcpy');
 
 // ## Definitions
 
