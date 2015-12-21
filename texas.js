@@ -5,7 +5,8 @@
 var _ = require('underscore');
 var fs = require('fs');
 var crypto = require('crypto');
-var gzip = require('compress-buffer');
+var zlib = require('zlib');
+var memcpy = require('memcpy');
 
 // ## Definitions
 
@@ -30,7 +31,10 @@ var hands = ['Invalid', 'High Card', 'One Pair', 'Two Pairs',
 
 // Loads the look-up table.
 var buffer = fs.readFileSync(__dirname + '/HandRanks.dat.gz');
-var evaluator = new Int32Array(gzip.uncompress(buffer));
+var zbuffer = zlib.gunzipSync(buffer);
+var bufferArray = new ArrayBuffer(zbuffer.length);
+memcpy(bufferArray,0,zbuffer);
+var evaluator = new Int32Array(bufferArray);
 
 // ## Internal Functions
 
