@@ -1,7 +1,7 @@
 # texas
 Texas is a library to provide 5 to 7 card hands evaluation for Texas Hold'em on node.js.
 It uses the look-up table method created by users of the
-[Two Plus Two forum](archives1.twoplustwo.com/showflat.php?Cat=0&Number=8513906&page=0&fpart=1&vc=1).
+[Two Plus Two forum](https://web.archive.org/web/20121115021606/http://archives1.twoplustwo.com/showflat.php?Cat=0&Number=8513906&page=0&fpart=all&vc=1).
 
 ## Installing
 ```
@@ -14,10 +14,10 @@ npm install texas
 
 The following example generates a random hand and evaluates it:
 ```javascript
-var _ = require('underscore');
-var texas = require('texas');
+import _ from 'lodash';
+import * as texas from 'texas';
 
-var hand = _.first(texas.deck(), 7);
+const hand = _.first(texas.deck(), 7);
 console.log(_.map(hand, texas.abbr));
 console.log(texas.evaluate(hand));
 ```
@@ -32,9 +32,9 @@ Which will output something like:
 
 The following example calculates the odds of a 2-player game after the flop:
 ```javascript
-var texas = require('texas');
+import * as texas from 'texas';
 
-var odds = texas.odds([['As', 'Ac'], ['Ks', 'Qc']], ['3d', 'Qc', 'Kd']);
+const odds = texas.odds([['As', 'Ac'], ['Ks', 'Qc']], ['3d', 'Qc', 'Kd']);
 console.log(odds);
 ```
 
