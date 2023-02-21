@@ -27,9 +27,14 @@
               <div class="sswrap ">
                 <a class="ss" href="#section-1">&#x00a7;</a>
               </div>
-              <p>Texas Hold’em hand evaluator for <a href="http://nodejs.org/">Node.js</a>.</p>
-
+              
             </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-comment">/**
+ * Texas Hold&#x27;em hand evaluator for [Node.js](http://nodejs.org/).
+ */</span>
+<span class="hljs-meta">
+&#x27;use strict&#x27;</span>;</pre></div></div>
             
         </li>
         
@@ -45,9 +50,9 @@
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">import</span> _ <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;lodash&#x27;</span>;
-<span class="hljs-keyword">import</span> { randomBytes } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:crypto&#x27;</span>;
-<span class="hljs-keyword">import</span> { readFileSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:fs&#x27;</span>;
-<span class="hljs-keyword">import</span> { unzipSync } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:zlib&#x27;</span>;</pre></div></div>
+<span class="hljs-keyword">import</span> {randomBytes} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:crypto&#x27;</span>;
+<span class="hljs-keyword">import</span> {readFileSync} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:fs&#x27;</span>;
+<span class="hljs-keyword">import</span> {unzipSync} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:zlib&#x27;</span>;</pre></div></div>
             
         </li>
         
@@ -106,8 +111,21 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">RANKS</span> = [<span class="hljs-string">&#x27;Two&#x27;</span>, <span class="hljs-string">&#x27;Three&#x27;</span>, <span class="hljs-string">&#x27;Four&#x27;</span>, <span class="hljs-string">&#x27;Five&#x27;</span>, <span class="hljs-string">&#x27;Six&#x27;</span>, <span class="hljs-string">&#x27;Seven&#x27;</span>, 
-		<span class="hljs-string">&#x27;Eight&#x27;</span>, <span class="hljs-string">&#x27;Nine&#x27;</span>, <span class="hljs-string">&#x27;Ten&#x27;</span>, <span class="hljs-string">&#x27;Jack&#x27;</span>, <span class="hljs-string">&#x27;Queen&#x27;</span>, <span class="hljs-string">&#x27;King&#x27;</span>, <span class="hljs-string">&#x27;Ace&#x27;</span>];</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">RANKS</span> = [
+  <span class="hljs-string">&#x27;Two&#x27;</span>,
+  <span class="hljs-string">&#x27;Three&#x27;</span>,
+  <span class="hljs-string">&#x27;Four&#x27;</span>,
+  <span class="hljs-string">&#x27;Five&#x27;</span>,
+  <span class="hljs-string">&#x27;Six&#x27;</span>,
+  <span class="hljs-string">&#x27;Seven&#x27;</span>,
+  <span class="hljs-string">&#x27;Eight&#x27;</span>,
+  <span class="hljs-string">&#x27;Nine&#x27;</span>,
+  <span class="hljs-string">&#x27;Ten&#x27;</span>,
+  <span class="hljs-string">&#x27;Jack&#x27;</span>,
+  <span class="hljs-string">&#x27;Queen&#x27;</span>,
+  <span class="hljs-string">&#x27;King&#x27;</span>,
+  <span class="hljs-string">&#x27;Ace&#x27;</span>,
+];</pre></div></div>
             
         </li>
         
@@ -137,9 +155,18 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">HANDS</span> = [<span class="hljs-string">&#x27;Invalid&#x27;</span>, <span class="hljs-string">&#x27;High Card&#x27;</span>, <span class="hljs-string">&#x27;One Pair&#x27;</span>, <span class="hljs-string">&#x27;Two Pairs&#x27;</span>,
-		<span class="hljs-string">&#x27;Three of a Kind&#x27;</span>, <span class="hljs-string">&#x27;Straight&#x27;</span>, <span class="hljs-string">&#x27;Flush&#x27;</span>, <span class="hljs-string">&#x27;Full House&#x27;</span>,
-		<span class="hljs-string">&#x27;Four of a Kind&#x27;</span>, <span class="hljs-string">&#x27;Straight Flush&#x27;</span>];</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">HANDS</span> = [
+  <span class="hljs-string">&#x27;Invalid&#x27;</span>,
+  <span class="hljs-string">&#x27;High Card&#x27;</span>,
+  <span class="hljs-string">&#x27;One Pair&#x27;</span>,
+  <span class="hljs-string">&#x27;Two Pairs&#x27;</span>,
+  <span class="hljs-string">&#x27;Three of a Kind&#x27;</span>,
+  <span class="hljs-string">&#x27;Straight&#x27;</span>,
+  <span class="hljs-string">&#x27;Flush&#x27;</span>,
+  <span class="hljs-string">&#x27;Full House&#x27;</span>,
+  <span class="hljs-string">&#x27;Four of a Kind&#x27;</span>,
+  <span class="hljs-string">&#x27;Straight Flush&#x27;</span>,
+];</pre></div></div>
             
         </li>
         
@@ -157,9 +184,9 @@
             <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> compressedBuffer = <span class="hljs-title function_">readFileSync</span>(<span class="hljs-string">&#x27;./HandRanks.dat.gz&#x27;</span>);
 <span class="hljs-keyword">const</span> buffer = <span class="hljs-title function_">unzipSync</span>(compressedBuffer);
 <span class="hljs-keyword">const</span> evaluator = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Int32Array</span>(
-	buffer.<span class="hljs-property">buffer</span>,
-	buffer.<span class="hljs-property">byteOffset</span>,
-	buffer.<span class="hljs-property">byteLength</span> / <span class="hljs-title class_">Int32Array</span>.<span class="hljs-property">BYTES_PER_ELEMENT</span>,
+  buffer.<span class="hljs-property">buffer</span>,
+  buffer.<span class="hljs-property">byteOffset</span>,
+  buffer.<span class="hljs-property">byteLength</span> / <span class="hljs-title class_">Int32Array</span>.<span class="hljs-property">BYTES_PER_ELEMENT</span>,
 );</pre></div></div>
             
         </li>
@@ -188,16 +215,17 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> <span class="hljs-title function_">getCode</span> = (<span class="hljs-params">card</span>) =&gt; {
-	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> card == <span class="hljs-string">&#x27;number&#x27;</span>)
-		<span class="hljs-keyword">return</span> card &gt;= <span class="hljs-number">1</span> &amp;&amp; card &lt;= <span class="hljs-variable constant_">DECK_SIZE</span> ? card : <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Already codified</span>
-	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> card != <span class="hljs-string">&#x27;string&#x27;</span> || card.<span class="hljs-property">length</span> != <span class="hljs-number">2</span>)
-		<span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Invalid input</span>
-	<span class="hljs-keyword">const</span> posRank = <span class="hljs-variable constant_">ABBR</span>[card[<span class="hljs-number">0</span>]];
-	<span class="hljs-keyword">const</span> posSuit = (<span class="hljs-variable constant_">ABBR</span>[card[<span class="hljs-number">1</span>]] - <span class="hljs-variable constant_">RANKS</span>.<span class="hljs-property">length</span>) &gt;&gt; <span class="hljs-number">1</span>;
-	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> posRank != <span class="hljs-string">&#x27;number&#x27;</span> || posRank &gt;= <span class="hljs-variable constant_">RANKS</span>.<span class="hljs-property">length</span> || posSuit &lt; <span class="hljs-number">0</span>)
-		<span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Invalid characters</span>
-	<span class="hljs-keyword">return</span> posRank * <span class="hljs-variable constant_">SUITS</span>.<span class="hljs-property">length</span> + posSuit + <span class="hljs-number">1</span>;
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> <span class="hljs-title function_">getCode</span> = card =&gt; {
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> card == <span class="hljs-string">&#x27;number&#x27;</span>)
+    <span class="hljs-keyword">return</span> card &gt;= <span class="hljs-number">1</span> &amp;&amp; card &lt;= <span class="hljs-variable constant_">DECK_SIZE</span> ? card : <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Already codified</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> card != <span class="hljs-string">&#x27;string&#x27;</span> || card.<span class="hljs-property">length</span> != <span class="hljs-number">2</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Invalid input</span>
+  }
+  <span class="hljs-keyword">const</span> posRank = <span class="hljs-variable constant_">ABBR</span>[card[<span class="hljs-number">0</span>]];
+  <span class="hljs-keyword">const</span> posSuit = (<span class="hljs-variable constant_">ABBR</span>[card[<span class="hljs-number">1</span>]] - <span class="hljs-variable constant_">RANKS</span>.<span class="hljs-property">length</span>) &gt;&gt; <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> posRank != <span class="hljs-string">&#x27;number&#x27;</span> || posRank &gt;= <span class="hljs-variable constant_">RANKS</span>.<span class="hljs-property">length</span> || posSuit &lt; <span class="hljs-number">0</span>)
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// Invalid characters</span>
+  <span class="hljs-keyword">return</span> posRank * <span class="hljs-variable constant_">SUITS</span>.<span class="hljs-property">length</span> + posSuit + <span class="hljs-number">1</span>;
 };</pre></div></div>
             
         </li>
@@ -213,14 +241,15 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> <span class="hljs-title function_">filter</span> = (<span class="hljs-params">format</span>) =&gt; {
-	<span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">card</span>) =&gt;</span> {
-		card = <span class="hljs-title function_">getCode</span>(card);
-		<span class="hljs-keyword">if</span> (!card)
-			<span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
-		card--;
-		<span class="hljs-keyword">return</span> <span class="hljs-title function_">format</span>({<span class="hljs-attr">rank</span>: card &gt;&gt; <span class="hljs-number">2</span>, <span class="hljs-attr">suit</span>: card &amp; <span class="hljs-number">3</span>});
-	};
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> <span class="hljs-title function_">filter</span> = format =&gt; {
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">card</span> =&gt;</span> {
+    card = <span class="hljs-title function_">getCode</span>(card);
+    <span class="hljs-keyword">if</span> (!card) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+    }
+    card--;
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">format</span>({<span class="hljs-attr">rank</span>: card &gt;&gt; <span class="hljs-number">2</span>, <span class="hljs-attr">suit</span>: card &amp; <span class="hljs-number">3</span>});
+  };
 };</pre></div></div>
             
         </li>
@@ -238,28 +267,29 @@
             
             <div class="content"><div class='highlight'><pre>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">deck</span>(<span class="hljs-params">format</span>) {
-	<span class="hljs-keyword">const</span> res = _.<span class="hljs-title function_">range</span>(<span class="hljs-number">1</span>, <span class="hljs-variable constant_">DECK_SIZE</span> + <span class="hljs-number">1</span>);
-	<span class="hljs-keyword">const</span> buffer = <span class="hljs-title function_">randomBytes</span>(<span class="hljs-variable constant_">DECK_SIZE</span> &lt;&lt; <span class="hljs-number">2</span>);
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> pos = res.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>; pos &gt; <span class="hljs-number">0</span>; pos--) {
-		<span class="hljs-keyword">const</span> rand = buffer.<span class="hljs-title function_">readUInt32LE</span>(pos &lt;&lt; <span class="hljs-number">2</span>) % (pos + <span class="hljs-number">1</span>);
-		<span class="hljs-keyword">let</span> temp = res[pos];
-		res[pos] = res[rand];
-		res[rand] = temp;
-	};
-	<span class="hljs-keyword">return</span> format ? <span class="hljs-title function_">map</span>(res, format) : res;
+  <span class="hljs-keyword">const</span> res = _.<span class="hljs-title function_">range</span>(<span class="hljs-number">1</span>, <span class="hljs-variable constant_">DECK_SIZE</span> + <span class="hljs-number">1</span>);
+  <span class="hljs-keyword">const</span> buffer = <span class="hljs-title function_">randomBytes</span>(<span class="hljs-variable constant_">DECK_SIZE</span> &lt;&lt; <span class="hljs-number">2</span>);
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> pos = res.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>; pos &gt; <span class="hljs-number">0</span>; pos--) {
+    <span class="hljs-keyword">const</span> rand = buffer.<span class="hljs-title function_">readUInt32LE</span>(pos &lt;&lt; <span class="hljs-number">2</span>) % (pos + <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">let</span> temp = res[pos];
+    res[pos] = res[rand];
+    res[rand] = temp;
+  }
+  <span class="hljs-keyword">return</span> format ? <span class="hljs-title function_">map</span>(res, format) : res;
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">evaluate</span>(<span class="hljs-params">cards</span>) {
-	<span class="hljs-keyword">let</span> res = <span class="hljs-variable constant_">DECK_SIZE</span> + <span class="hljs-number">1</span>;
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c = <span class="hljs-number">0</span>; c &lt; cards.<span class="hljs-property">length</span>; c++)
-		res = evaluator[res + <span class="hljs-title function_">getCode</span>(cards[c])];
-	<span class="hljs-keyword">if</span> (cards.<span class="hljs-property">length</span> &lt; <span class="hljs-number">7</span>)
-		res = evaluator[res];
-	<span class="hljs-keyword">return</span> { <span class="hljs-attr">name</span>: <span class="hljs-variable constant_">HANDS</span>[res &gt;&gt; <span class="hljs-number">12</span>], <span class="hljs-attr">value</span>: res };
+  <span class="hljs-keyword">let</span> res = <span class="hljs-variable constant_">DECK_SIZE</span> + <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c = <span class="hljs-number">0</span>; c &lt; cards.<span class="hljs-property">length</span>; c++)
+    res = evaluator[res + <span class="hljs-title function_">getCode</span>(cards[c])];
+  <span class="hljs-keyword">if</span> (cards.<span class="hljs-property">length</span> &lt; <span class="hljs-number">7</span>) {
+    res = evaluator[res];
+  }
+  <span class="hljs-keyword">return</span> {<span class="hljs-attr">name</span>: <span class="hljs-variable constant_">HANDS</span>[res &gt;&gt; <span class="hljs-number">12</span>], <span class="hljs-attr">value</span>: res};
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">sort</span>(<span class="hljs-params">cards</span>) {
-	<span class="hljs-keyword">return</span> _.<span class="hljs-title function_">sortBy</span>(cards, getCode);
+  <span class="hljs-keyword">return</span> _.<span class="hljs-title function_">sortBy</span>(cards, getCode);
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">odds</span>(<span class="hljs-params">hands, table, dead</span>) {</pre></div></div>
@@ -277,29 +307,33 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>	table = table ? _.<span class="hljs-title function_">map</span>(table, getCode) : [];
-	dead = dead ? _.<span class="hljs-title function_">map</span>(dead, getCode) : [];
-	hands = _.<span class="hljs-title function_">map</span>(hands, <span class="hljs-function">(<span class="hljs-params">hand</span>) =&gt;</span> {
-		<span class="hljs-keyword">return</span> _.<span class="hljs-title function_">map</span>(hand, getCode);
-	});
-	<span class="hljs-keyword">let</span> res = <span class="hljs-variable constant_">DECK_SIZE</span> + <span class="hljs-number">1</span>;
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c = <span class="hljs-number">0</span>; c &lt; table.<span class="hljs-property">length</span>; c++)
-		res = evaluator[res + table[c]];
-	<span class="hljs-keyword">const</span> deck = _.<span class="hljs-title function_">chain</span>(_.<span class="hljs-title function_">range</span>(<span class="hljs-number">1</span>, <span class="hljs-variable constant_">DECK_SIZE</span> + <span class="hljs-number">1</span>)).<span class="hljs-title function_">difference</span>(table)
-		.<span class="hljs-title function_">difference</span>(_.<span class="hljs-title function_">flatten</span>(hands)).<span class="hljs-title function_">difference</span>(dead).<span class="hljs-title function_">value</span>();
-	<span class="hljs-keyword">const</span> player = _.<span class="hljs-title function_">map</span>(hands, <span class="hljs-function">(<span class="hljs-params">hand</span>) =&gt;</span> {
-		<span class="hljs-keyword">return</span> evaluator[evaluator[res + hand[<span class="hljs-number">0</span>]] + hand[<span class="hljs-number">1</span>]];
-	});
-	<span class="hljs-keyword">const</span> <span class="hljs-title function_">combinations</span> = (<span class="hljs-params">n, k, res, callback</span>) =&gt; {
-		<span class="hljs-keyword">if</span> (k &lt;= <span class="hljs-number">0</span>) {
-			<span class="hljs-title function_">callback</span>(res);
-		} <span class="hljs-keyword">else</span> {
-			<span class="hljs-keyword">while</span> (n &lt; deck.<span class="hljs-property">length</span>) {
-				<span class="hljs-keyword">const</span> parcial = evaluator[res + deck[n++]];
-				<span class="hljs-title function_">combinations</span>(n, k - <span class="hljs-number">1</span>, parcial, callback);
-			}
-		}
-	};</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  table = table ? _.<span class="hljs-title function_">map</span>(table, getCode) : [];
+  dead = dead ? _.<span class="hljs-title function_">map</span>(dead, getCode) : [];
+  hands = _.<span class="hljs-title function_">map</span>(hands, <span class="hljs-function"><span class="hljs-params">hand</span> =&gt;</span> {
+    <span class="hljs-keyword">return</span> _.<span class="hljs-title function_">map</span>(hand, getCode);
+  });
+  <span class="hljs-keyword">let</span> res = <span class="hljs-variable constant_">DECK_SIZE</span> + <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c = <span class="hljs-number">0</span>; c &lt; table.<span class="hljs-property">length</span>; c++) {
+    res = evaluator[res + table[c]];
+  }
+  <span class="hljs-keyword">const</span> deck = _.<span class="hljs-title function_">chain</span>(_.<span class="hljs-title function_">range</span>(<span class="hljs-number">1</span>, <span class="hljs-variable constant_">DECK_SIZE</span> + <span class="hljs-number">1</span>))
+    .<span class="hljs-title function_">difference</span>(table)
+    .<span class="hljs-title function_">difference</span>(_.<span class="hljs-title function_">flatten</span>(hands))
+    .<span class="hljs-title function_">difference</span>(dead)
+    .<span class="hljs-title function_">value</span>();
+  <span class="hljs-keyword">const</span> player = _.<span class="hljs-title function_">map</span>(hands, <span class="hljs-function"><span class="hljs-params">hand</span> =&gt;</span> {
+    <span class="hljs-keyword">return</span> evaluator[evaluator[res + hand[<span class="hljs-number">0</span>]] + hand[<span class="hljs-number">1</span>]];
+  });
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">combinations</span> = (<span class="hljs-params">n, k, res, callback</span>) =&gt; {
+    <span class="hljs-keyword">if</span> (k &lt;= <span class="hljs-number">0</span>) {
+      <span class="hljs-title function_">callback</span>(res);
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">while</span> (n &lt; deck.<span class="hljs-property">length</span>) {
+        <span class="hljs-keyword">const</span> parcial = evaluator[res + deck[n++]];
+        <span class="hljs-title function_">combinations</span>(n, k - <span class="hljs-number">1</span>, parcial, callback);
+      }
+    }
+  };</pre></div></div>
             
         </li>
         
@@ -314,18 +348,19 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">const</span> remaining = <span class="hljs-number">5</span> - table.<span class="hljs-property">length</span>;
-	<span class="hljs-keyword">let</span> plays = deck.<span class="hljs-property">length</span> / remaining;
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c = <span class="hljs-number">1</span>; c &lt; remaining; c++)
-		plays *= (deck.<span class="hljs-property">length</span> - c) / c;
-	<span class="hljs-keyword">const</span> values = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>(hands.<span class="hljs-property">length</span>);
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> p = <span class="hljs-number">0</span>; p &lt; hands.<span class="hljs-property">length</span>; p++) {
-		<span class="hljs-keyword">let</span> s = <span class="hljs-number">0</span>;
-		values[p] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Int32Array</span>(plays);
-		<span class="hljs-title function_">combinations</span>(<span class="hljs-number">0</span>, remaining, player[p], <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> {
-			values[p][s++] = res;
-		});
-	}</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">const</span> remaining = <span class="hljs-number">5</span> - table.<span class="hljs-property">length</span>;
+  <span class="hljs-keyword">let</span> plays = deck.<span class="hljs-property">length</span> / remaining;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c = <span class="hljs-number">1</span>; c &lt; remaining; c++) {
+    plays *= (deck.<span class="hljs-property">length</span> - c) / c;
+  }
+  <span class="hljs-keyword">const</span> values = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Array</span>(hands.<span class="hljs-property">length</span>);
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> p = <span class="hljs-number">0</span>; p &lt; hands.<span class="hljs-property">length</span>; p++) {
+    <span class="hljs-keyword">let</span> s = <span class="hljs-number">0</span>;
+    values[p] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Int32Array</span>(plays);
+    <span class="hljs-title function_">combinations</span>(<span class="hljs-number">0</span>, remaining, player[p], <span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> {
+      values[p][s++] = res;
+    });
+  }</pre></div></div>
             
         </li>
         
@@ -340,23 +375,25 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">const</span> wins = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Int32Array</span>(hands.<span class="hljs-property">length</span>);
-	<span class="hljs-keyword">const</span> splits = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Int32Array</span>(hands.<span class="hljs-property">length</span>);
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> s = <span class="hljs-number">0</span>; s &lt; plays; s++) {
-		<span class="hljs-keyword">let</span> winner = [<span class="hljs-number">0</span>];
-		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> p = <span class="hljs-number">1</span>; p &lt; hands.<span class="hljs-property">length</span>; p++) {
-			<span class="hljs-keyword">if</span> (values[p][s] &gt; values[winner[<span class="hljs-number">0</span>]][s])
-				winner = [p];
-			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (values[p][s] == values[winner[<span class="hljs-number">0</span>]][s])
-				winner.<span class="hljs-title function_">push</span>(p);
-		}
-		<span class="hljs-keyword">if</span> (winner.<span class="hljs-property">length</span> == <span class="hljs-number">1</span>) {
-			wins[winner[<span class="hljs-number">0</span>]]++;
-		} <span class="hljs-keyword">else</span> {
-			<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> p = <span class="hljs-number">0</span>; p &lt; winner.<span class="hljs-property">length</span>; p++)
-				splits[winner[p]]++;
-		}
-	}</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">const</span> wins = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Int32Array</span>(hands.<span class="hljs-property">length</span>);
+  <span class="hljs-keyword">const</span> splits = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Int32Array</span>(hands.<span class="hljs-property">length</span>);
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> s = <span class="hljs-number">0</span>; s &lt; plays; s++) {
+    <span class="hljs-keyword">let</span> winner = [<span class="hljs-number">0</span>];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> p = <span class="hljs-number">1</span>; p &lt; hands.<span class="hljs-property">length</span>; p++) {
+      <span class="hljs-keyword">if</span> (values[p][s] &gt; values[winner[<span class="hljs-number">0</span>]][s]) {
+        winner = [p];
+      } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (values[p][s] == values[winner[<span class="hljs-number">0</span>]][s]) {
+        winner.<span class="hljs-title function_">push</span>(p);
+      }
+    }
+    <span class="hljs-keyword">if</span> (winner.<span class="hljs-property">length</span> == <span class="hljs-number">1</span>) {
+      wins[winner[<span class="hljs-number">0</span>]]++;
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> p = <span class="hljs-number">0</span>; p &lt; winner.<span class="hljs-property">length</span>; p++) {
+        splits[winner[p]]++;
+      }
+    }
+  }</pre></div></div>
             
         </li>
         
@@ -371,59 +408,60 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">const</span> odds = [];
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> p = <span class="hljs-number">0</span>; p &lt; hands.<span class="hljs-property">length</span>; p++)
-		odds[p] = { <span class="hljs-attr">win</span>: wins[p] / plays, <span class="hljs-attr">split</span>: splits[p] / plays };
-	<span class="hljs-keyword">return</span> odds;
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">const</span> odds = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> p = <span class="hljs-number">0</span>; p &lt; hands.<span class="hljs-property">length</span>; p++) {
+    odds[p] = {<span class="hljs-attr">win</span>: wins[p] / plays, <span class="hljs-attr">split</span>: splits[p] / plays};
+  }
+  <span class="hljs-keyword">return</span> odds;
 }
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> extended = <span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">card</span>) =&gt;</span> {
-	<span class="hljs-keyword">return</span> <span class="hljs-variable constant_">RANKS</span>[card.<span class="hljs-property">rank</span>] + <span class="hljs-string">&#x27; of &#x27;</span> + <span class="hljs-variable constant_">SUITS</span>[card.<span class="hljs-property">suit</span>];
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> extended = <span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">card</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-variable constant_">RANKS</span>[card.<span class="hljs-property">rank</span>] + <span class="hljs-string">&#x27; of &#x27;</span> + <span class="hljs-variable constant_">SUITS</span>[card.<span class="hljs-property">suit</span>];
 });
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> abbr = <span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">card</span>) =&gt;</span> {
-	<span class="hljs-keyword">return</span> <span class="hljs-variable constant_">CHARS</span>[card.<span class="hljs-property">rank</span>] + <span class="hljs-variable constant_">CHARS</span>[(card.<span class="hljs-property">suit</span> &lt;&lt; <span class="hljs-number">1</span>) + <span class="hljs-variable constant_">RANKS</span>.<span class="hljs-property">length</span>];
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> abbr = <span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">card</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-variable constant_">CHARS</span>[card.<span class="hljs-property">rank</span>] + <span class="hljs-variable constant_">CHARS</span>[(card.<span class="hljs-property">suit</span> &lt;&lt; <span class="hljs-number">1</span>) + <span class="hljs-variable constant_">RANKS</span>.<span class="hljs-property">length</span>];
 });
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> unicode = <span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">card</span>) =&gt;</span> {
-	<span class="hljs-keyword">return</span> <span class="hljs-variable constant_">CHARS</span>[card.<span class="hljs-property">rank</span>] + <span class="hljs-variable constant_">CHARS</span>[(card.<span class="hljs-property">suit</span> &lt;&lt; <span class="hljs-number">1</span>) + <span class="hljs-variable constant_">RANKS</span>.<span class="hljs-property">length</span> + <span class="hljs-number">1</span>];
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> unicode = <span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">card</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-variable constant_">CHARS</span>[card.<span class="hljs-property">rank</span>] + <span class="hljs-variable constant_">CHARS</span>[(card.<span class="hljs-property">suit</span> &lt;&lt; <span class="hljs-number">1</span>) + <span class="hljs-variable constant_">RANKS</span>.<span class="hljs-property">length</span> + <span class="hljs-number">1</span>];
 });
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> code = getCode;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">benchmark</span>(<span class="hljs-params"></span>) {
-	<span class="hljs-keyword">const</span> freq = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Int32Array</span>(<span class="hljs-variable constant_">HANDS</span>.<span class="hljs-property">length</span>);
-	<span class="hljs-keyword">const</span> start = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>();
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c1 = <span class="hljs-number">1</span>; c1 &lt;= <span class="hljs-variable constant_">DECK_SIZE</span>; c1++) {
-		<span class="hljs-keyword">const</span> r1 = evaluator[<span class="hljs-variable constant_">DECK_SIZE</span> + c1 + <span class="hljs-number">1</span>];
-		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c2 = c1 + <span class="hljs-number">1</span>; c2 &lt;= <span class="hljs-variable constant_">DECK_SIZE</span>; c2++) {
-			<span class="hljs-keyword">const</span> r2 = evaluator[r1 + c2];
-			<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c3 = c2 + <span class="hljs-number">1</span>; c3 &lt;= <span class="hljs-variable constant_">DECK_SIZE</span>; c3++) {
-				<span class="hljs-keyword">const</span> r3 = evaluator[r2 + c3];
-				<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c4 = c3 + <span class="hljs-number">1</span>; c4 &lt;= <span class="hljs-variable constant_">DECK_SIZE</span>; c4++) {
-					<span class="hljs-keyword">const</span> r4 = evaluator[r3 + c4];
-					<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c5 = c4 + <span class="hljs-number">1</span>; c5 &lt;= <span class="hljs-variable constant_">DECK_SIZE</span>; c5++) {
-						<span class="hljs-keyword">const</span> r5 = evaluator[r4 + c5];
-						<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c6 = c5 + <span class="hljs-number">1</span>; c6 &lt;= <span class="hljs-variable constant_">DECK_SIZE</span>; c6++) {
-							<span class="hljs-keyword">const</span> r6 = evaluator[r5 + c6];
-							<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c7 = c6 + <span class="hljs-number">1</span>; c7 &lt;= <span class="hljs-variable constant_">DECK_SIZE</span>; c7++) {
-								<span class="hljs-keyword">const</span> r7 = evaluator[r6 + c7];
-								freq[r7 &gt;&gt; <span class="hljs-number">12</span>]++;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	<span class="hljs-keyword">const</span> finish = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>();
-	<span class="hljs-keyword">let</span> total = <span class="hljs-number">0</span>;
-	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key = <span class="hljs-number">0</span>; key &lt; <span class="hljs-variable constant_">HANDS</span>.<span class="hljs-property">length</span>; key++) {
-		total += freq[key];
-		<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable constant_">HANDS</span>[key] + <span class="hljs-string">&#x27;: &#x27;</span> + freq[key]);
-	}
-	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Total: &#x27;</span> + total);
-	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>((finish - start) + <span class="hljs-string">&#x27;ms&#x27;</span>);
+  <span class="hljs-keyword">const</span> freq = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Int32Array</span>(<span class="hljs-variable constant_">HANDS</span>.<span class="hljs-property">length</span>);
+  <span class="hljs-keyword">const</span> start = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>();
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c1 = <span class="hljs-number">1</span>; c1 &lt;= <span class="hljs-variable constant_">DECK_SIZE</span>; c1++) {
+    <span class="hljs-keyword">const</span> r1 = evaluator[<span class="hljs-variable constant_">DECK_SIZE</span> + c1 + <span class="hljs-number">1</span>];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c2 = c1 + <span class="hljs-number">1</span>; c2 &lt;= <span class="hljs-variable constant_">DECK_SIZE</span>; c2++) {
+      <span class="hljs-keyword">const</span> r2 = evaluator[r1 + c2];
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c3 = c2 + <span class="hljs-number">1</span>; c3 &lt;= <span class="hljs-variable constant_">DECK_SIZE</span>; c3++) {
+        <span class="hljs-keyword">const</span> r3 = evaluator[r2 + c3];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c4 = c3 + <span class="hljs-number">1</span>; c4 &lt;= <span class="hljs-variable constant_">DECK_SIZE</span>; c4++) {
+          <span class="hljs-keyword">const</span> r4 = evaluator[r3 + c4];
+          <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c5 = c4 + <span class="hljs-number">1</span>; c5 &lt;= <span class="hljs-variable constant_">DECK_SIZE</span>; c5++) {
+            <span class="hljs-keyword">const</span> r5 = evaluator[r4 + c5];
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c6 = c5 + <span class="hljs-number">1</span>; c6 &lt;= <span class="hljs-variable constant_">DECK_SIZE</span>; c6++) {
+              <span class="hljs-keyword">const</span> r6 = evaluator[r5 + c6];
+              <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> c7 = c6 + <span class="hljs-number">1</span>; c7 &lt;= <span class="hljs-variable constant_">DECK_SIZE</span>; c7++) {
+                <span class="hljs-keyword">const</span> r7 = evaluator[r6 + c7];
+                freq[r7 &gt;&gt; <span class="hljs-number">12</span>]++;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  <span class="hljs-keyword">const</span> finish = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>();
+  <span class="hljs-keyword">let</span> total = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key = <span class="hljs-number">0</span>; key &lt; <span class="hljs-variable constant_">HANDS</span>.<span class="hljs-property">length</span>; key++) {
+    total += freq[key];
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable constant_">HANDS</span>[key] + <span class="hljs-string">&#x27;: &#x27;</span> + freq[key]);
+  }
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Total: &#x27;</span> + total);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(finish - start + <span class="hljs-string">&#x27;ms&#x27;</span>);
 }</pre></div></div>
             
         </li>
